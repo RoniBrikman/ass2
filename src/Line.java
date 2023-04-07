@@ -1,9 +1,13 @@
 //323871723 Roni Brikman
 
+import java.awt.*;
+
 /**
+ * The type Line.
+ *
  * @author Roni Brikman < ronibrikman@gmail.com >
  * @version 1
- * @since 2023-04-07
+ * @since 2023 -04-07
  */
 public class Line {
     private double x1;
@@ -27,7 +31,7 @@ public class Line {
         this.y1 = start.getY();
         this.x2 = end.getX();
         this.y2 = end.getY();
-        
+
     }
 
     /**
@@ -111,7 +115,7 @@ public class Line {
      */
     public boolean isOnLine(Line l, Point p) {
         double epsilon = 0.000001;
-        return (Math.abs((distance(l.start, p) + distance(l.end, p)) - l.length()) < epsilon);
+        return (Math.abs((distance(l.start(), p) + distance(l.end(), p)) - l.length()) < epsilon);
     }
 
     /**
@@ -125,11 +129,9 @@ public class Line {
         if (this.intersectionWith(other) != null) {
             return true;
         } else {
-            return (isOnLine(this, other.start)) || (isOnLine(this, other.end))
+            return (isOnLine(this, other.start())) || (isOnLine(this, other.end()))
                     || (isOnLine(other, this.start)) || (isOnLine(other, this.end));
         }
-
-
     }
 
     /**
@@ -147,8 +149,8 @@ public class Line {
         }
         Point a = this.start;
         Point b = this.end;
-        Point c = other.end;
-        Point d = other.start;
+        Point c = other.end();
+        Point d = other.start();
         // Line AB represented as a1x + b1y = c1
         double a1 = b.getY() - a.getY();
         double b1 = a.getX() - b.getX();
@@ -161,12 +163,25 @@ public class Line {
         double determinant = a1 * b2 - a2 * b1;
 
         if (determinant == 0) {
-            // The lines are parallel.
+            if ((this.start.equals(other.start())) && !(this.end.equals(other.end()))) {
+                return this.start;
+            } else if ((this.start.equals(other.end())) && !(this.end.equals(other.start()))) {
+                return this.start;
+            } else if (!(this.start.equals(other.end())) && (this.end.equals(other.start()))) {
+                return this.end;
+            } else if ((this.end.equals(other.end())) && !(this.start.equals(other.start()))) {
+                return this.end;
+            }
+            // The lines are parallel 
             return null;
         } else {
             double x = (b2 * c1 - b1 * c2) / determinant;
             double y = (a1 * c2 - a2 * c1) / determinant;
-            return new Point(x, y);
+            Point p = new Point(x, y);
+            if (!(isOnLine(this, p) && isOnLine(other, p))) {
+                return null;
+            }
+            return p;
         }
 
     }
@@ -179,22 +194,45 @@ public class Line {
      */
 // equals -- return true is the lines are equal, false otherwise
     public boolean equals(Line other) {
-        if ((this.start == other.start) && (this.end == other.end)) {
+        if ((this.start() == other.start()) && (this.end() == other.end())) {
             return true;
         }
-        return (this.start == other.end) && (this.end == other.start);
-
+        return (this.start == other.end()) && (this.end == other.start());
     }
 
+    /**
+     * Part equals boolean.
+     *
+     * @param other the other
+     * @return the boolean
+     */
+//    public boolean partEquals(Line other) {
+//        if ((this.start == other.start()) && !(this.end == other.end())) {
+//            return true;
+//        } else if ((this.start == other.end()) && !(this.end == other.start())) {
+//            return true;
+//        } else if (!(this.start == other.end()) && (this.end == other.start())) {
+//            return true;
+//        } else if ((this.start == other.end()) && !(this.start == other.start())) {
+//            return true;
+//        }
+//        return false;
+//    }
+
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         Point p1 = new Point(2, 5);
-        Line l1 = new Line(0, 5, 2.5, 0);
-        Line l2 = new Line(0, -5, 2.5, 0);
+        Line l1 = new Line(-8, 4, -5, 4);
+        Line l2 = new Line(-5, 4, -2, 4);
         
         System.out.println(l1.isIntersecting(l2));
         System.out.println(l1.intersectionWith(l2).getX());
         System.out.println(l1.intersectionWith(l2).getY());
-        
+
 //        System.out.println(l1.end().getX());
 //        System.out.println(l1.end().getY());
 

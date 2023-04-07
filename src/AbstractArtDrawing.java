@@ -57,6 +57,12 @@ public class AbstractArtDrawing {
 
     }
 
+    /**
+     * Draw intersections.
+     *
+     * @param lines the lines
+     * @param d1    the d 1
+     */
     public void drawIntersections(Line[] lines, DrawSurface d1) {
         for (int i = 0; i < 10; i++) {
             for (int j = 1; j < 10; j++) {
@@ -81,6 +87,21 @@ public class AbstractArtDrawing {
         GUI gui = new GUI("Random Line", 400, 300);
         DrawSurface d1 = gui.getDrawSurface();
         Line[] lines = new Line[10];
+//        Line l1 = new Line(100, 100, 150, 100);
+//        Line l2 = new Line(130, 100, 150, 100);
+//        lines[0] = l1;
+//        lines[1] = l2;
+//        drawLine(l1, d1);
+//        drawLine(l2, d1);
+//        if (lines[0].isIntersecting(lines[1])) {
+//            if (lines[0].intersectionWith(lines[1]) != null) {
+//                double x = lines[0].intersectionWith(lines[1]).getX();
+//                double y = lines[0].intersectionWith(lines[1]).getY();
+//                int r = 3;
+//                d1.setColor(Color.RED);
+//                d1.fillCircle((int) x, (int) y, r);
+//            }
+//        }
         for (int i = 0; i < 10; i++) {
             //creates and draes the lines
             Line line = generateRandomLine();
