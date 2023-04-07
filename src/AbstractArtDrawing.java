@@ -24,25 +24,25 @@ public class AbstractArtDrawing {
 
     }
 
-//
-//    /**
-//     * * Draw random circles.
-//     */
-//    public void drawRandomCircles() {
-//        Random rand = new Random(); // create a random-number generator
-//        // Create a window with the title "Random Circles Example"
-//        // which is 400 pixels wide and 300 pixels high.
-//        GUI gui = new GUI("Random Circles Example", 400, 300);
-//        DrawSurface d = gui.getDrawSurface();
-//        for (int i = 0; i < 10; ++i) {
-//            int x = rand.nextInt(400) + 1; // get integer in range 1-400
-//            int y = rand.nextInt(300) + 1; // get integer in range 1-300
-//            int r = 5 * (rand.nextInt(4) + 1); // get integer in 5,10,15,20
-//            d.setColor(Color.RED);
-//            d.fillCircle(x, y, r);
-//        }
-//        gui.show(d);
-//    }
+
+    /**
+     * * Draw random circles.
+     */
+    public void drawRandomCircles() {
+        Random rand = new Random(); // create a random-number generator
+        // Create a window with the title "Random Circles Example"
+        // which is 400 pixels wide and 300 pixels high.
+        GUI gui = new GUI("Random Circles Example", 400, 300);
+        DrawSurface d = gui.getDrawSurface();
+        for (int i = 0; i < 10; ++i) {
+            int x = rand.nextInt(400) + 1; // get integer in range 1-400
+            int y = rand.nextInt(300) + 1; // get integer in range 1-300
+            int r = 5 * (rand.nextInt(4) + 1); // get integer in 5,10,15,20
+            d.setColor(Color.RED);
+            d.fillCircle(x, y, r);
+        }
+        gui.show(d);
+    }
 
     /**
      * Draw line.
@@ -57,6 +57,23 @@ public class AbstractArtDrawing {
 
     }
 
+    public void drawIntersections(Line[] lines, DrawSurface d1) {
+        for (int i = 0; i < 10; i++) {
+            for (int j = 1; j < 10; j++) {
+                if (lines[i].isIntersecting(lines[j])) {
+                    if (lines[i].intersectionWith(lines[j]) != null) {
+                        double x = lines[i].intersectionWith(lines[j]).getX();
+                        double y = lines[i].intersectionWith(lines[j]).getY();
+                        int r = 3;
+                        d1.setColor(Color.RED);
+                        d1.fillCircle((int) x, (int) y, r);
+                    }
+                }
+            }
+        }
+
+    }
+
     /**
      * Drawing.
      */
@@ -65,10 +82,18 @@ public class AbstractArtDrawing {
         DrawSurface d1 = gui.getDrawSurface();
         Line[] lines = new Line[10];
         for (int i = 0; i < 10; i++) {
+            //creates and draes the lines
             Line line = generateRandomLine();
             drawLine(line, d1);
             lines[i] = line;
+            //draws the middle points
+            double x = line.middle().getX();
+            double y = line.middle().getY();
+            int r = 3;
+            d1.setColor(Color.BLUE);
+            d1.fillCircle((int) x, (int) y, r);
         }
+        drawIntersections(lines, d1);
         gui.show(d1);
     }
 
@@ -80,27 +105,5 @@ public class AbstractArtDrawing {
     public static void main(String[] args) {
         AbstractArtDrawing example1 = new AbstractArtDrawing();
         example1.drawing();
-        //Line[] lines = new Line[10];
-//        for (int i = 0; i < 10; i++) {
-//            Line line = generateRandomLine();
-//            example.drawLine(line, d1);
-//            lines[i] = line;
-//        }
-
-
-//        AbstractArtDrawing example = new AbstractArtDrawing();
-//        GUI gui = new GUI("Random Line", 400, 300);
-//        DrawSurface d1 = gui.getDrawSurface();
-//        Line[] lines = new Line[10];
-//        for (int i = 0; i < 10; i++) {
-//            Line line = generateRandomLine();
-//            example.drawLine(line, d1);
-//            lines[i] = line;
-//        }
-//        Line l2 = new Line(2, 1, 3, 5);
-//        // Line line = generateRandomLine();
-//        example.drawLine(l2, d1);
-//        gui.show(d1);
-
     }
 }

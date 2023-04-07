@@ -23,7 +23,11 @@ public class Line {
     public Line(Point start, Point end) {
         this.start = start;
         this.end = end;
-
+        this.x1 = start.getX();
+        this.y1 = start.getY();
+        this.x2 = end.getX();
+        this.y2 = end.getY();
+        
     }
 
     /**
@@ -107,7 +111,7 @@ public class Line {
      */
     public boolean isOnLine(Line l, Point p) {
         double epsilon = 0.000001;
-        return ((Math.abs(distance(l.start, p) + distance(l.end, p)) - l.length()) < epsilon);
+        return (Math.abs((distance(l.start, p) + distance(l.end, p)) - l.length()) < epsilon);
     }
 
     /**
@@ -184,12 +188,15 @@ public class Line {
 
     public static void main(String[] args) {
         Point p1 = new Point(2, 5);
-        Line l1 = new Line(100, 100, 300, 300);
-        Point p2 = l1.start();
-        System.out.println(l1.start().getX());
-        System.out.println(l1.start().getY());
-        System.out.println(l1.end().getX());
-        System.out.println(l1.end().getY());
+        Line l1 = new Line(0, 5, 2.5, 0);
+        Line l2 = new Line(0, -5, 2.5, 0);
+        
+        System.out.println(l1.isIntersecting(l2));
+        System.out.println(l1.intersectionWith(l2).getX());
+        System.out.println(l1.intersectionWith(l2).getY());
+        
+//        System.out.println(l1.end().getX());
+//        System.out.println(l1.end().getY());
 
     }
 }
