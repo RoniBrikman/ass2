@@ -24,11 +24,11 @@ public class Point {
     }
 
     /**
-     * Instantiates a new Point.
+     * Instantiates a new Point Using different point.
      *
      * @param oldPoint the old point
      */
-    public Point(Point oldPoint)  {
+    public Point(Point oldPoint) {
         x = oldPoint.x;
         y = oldPoint.y;
     }

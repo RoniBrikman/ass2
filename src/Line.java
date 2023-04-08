@@ -1,7 +1,5 @@
 //323871723 Roni Brikman
 
-import java.awt.*;
-
 /**
  * The type Line.
  *
@@ -172,7 +170,7 @@ public class Line {
             } else if ((this.end.equals(other.end())) && !(this.start.equals(other.start()))) {
                 return this.end;
             }
-            // The lines are parallel 
+            // The lines are parallel
             return null;
         } else {
             double x = (b2 * c1 - b1 * c2) / determinant;
@@ -228,11 +226,9 @@ public class Line {
         Point p1 = new Point(2, 5);
         Line l1 = new Line(-8, 4, -5, 4);
         Line l2 = new Line(-5, 4, -2, 4);
-        
         System.out.println(l1.isIntersecting(l2));
         System.out.println(l1.intersectionWith(l2).getX());
         System.out.println(l1.intersectionWith(l2).getY());
-
 //        System.out.println(l1.end().getX());
 //        System.out.println(l1.end().getY());
 

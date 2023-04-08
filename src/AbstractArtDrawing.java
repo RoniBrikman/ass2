@@ -10,12 +10,13 @@ import java.util.Random;
 public class AbstractArtDrawing {
 
     /**
-     * Generate random line line.
+     * This method generates a random line.
      *
-     * @return the line
+     * @return the new line
      */
     public Line generateRandomLine() {
-        Random rand = new Random();
+        Random rand = new Random(); // create a random-number generator
+        //The window the line is within it's range is 400 pixels wide and 300 pixels high.
         double x1 = rand.nextDouble(400) + 1; // get double in range 1-400
         double y1 = rand.nextDouble(300) + 1; // get double in range 1-400
         double x2 = rand.nextDouble(400) + 1; // get double in range 1-400
@@ -45,10 +46,10 @@ public class AbstractArtDrawing {
     }
 
     /**
-     * Draw line.
+     * This method draws a line.
      *
-     * @param l the l
-     * @param d the d
+     * @param l the line we draw
+     * @param d the draw surface
      */
     public void drawLine(Line l, DrawSurface d) {
         d.setColor(Color.BLACK);
@@ -58,20 +59,21 @@ public class AbstractArtDrawing {
     }
 
     /**
-     * Draw intersections.
+     * This method draws intersections between every two lines.
      *
-     * @param lines the lines
-     * @param d1    the d 1
+     * @param lines the lines we drew
+     * @param d1 the draw surface
      */
     public void drawIntersections(Line[] lines, DrawSurface d1) {
         for (int i = 0; i < 10; i++) {
             for (int j = 1; j < 10; j++) {
-                if (lines[i].isIntersecting(lines[j])) {
-                    if (lines[i].intersectionWith(lines[j]) != null) {
-                        double x = lines[i].intersectionWith(lines[j]).getX();
-                        double y = lines[i].intersectionWith(lines[j]).getY();
-                        int r = 3;
+                if (lines[i].isIntersecting(lines[j])) { //if the lines intersect
+                    if (lines[i].intersectionWith(lines[j]) != null) { //if the intersection point is not null
+                        double x = lines[i].intersectionWith(lines[j]).getX(); // x value of the intersection point
+                        double y = lines[i].intersectionWith(lines[j]).getY(); // y value of the intersection point
+                        int r = 3; //radius
                         d1.setColor(Color.RED);
+                        //the intersection point is a red ball with radius 3
                         d1.fillCircle((int) x, (int) y, r);
                     }
                 }
@@ -81,14 +83,16 @@ public class AbstractArtDrawing {
     }
 
     /**
-     * Drawing.
+     * This method is the general drawing. From this method we call all the other methods of the drawings.
      */
     public void drawing() {
+        // Create a window with the title "Random Line"
+        // which is 400 pixels wide and 300 pixels high.
         GUI gui = new GUI("Random Line", 400, 300);
         DrawSurface d1 = gui.getDrawSurface();
-        Line[] lines = new Line[10];
-//        Line l1 = new Line(100, 100, 150, 100);
-//        Line l2 = new Line(130, 100, 150, 100);
+        Line[] lines = new Line[10]; //The array of the lines we will create.
+//        Line l1 = new Line(100, 100, 100, 150);
+//        Line l2 = new Line(100, 100, 100, 100);
 //        lines[0] = l1;
 //        lines[1] = l2;
 //        drawLine(l1, d1);
@@ -103,9 +107,10 @@ public class AbstractArtDrawing {
 //            }
 //        }
         for (int i = 0; i < 10; i++) {
-            //creates and draes the lines
+            //creates and draws the lines
             Line line = generateRandomLine();
             drawLine(line, d1);
+            //we put the line in the "Lines" array
             lines[i] = line;
             //draws the middle points
             double x = line.middle().getX();
@@ -114,6 +119,7 @@ public class AbstractArtDrawing {
             d1.setColor(Color.BLUE);
             d1.fillCircle((int) x, (int) y, r);
         }
+        //checks intersections points and draws them
         drawIntersections(lines, d1);
         gui.show(d1);
     }
@@ -124,7 +130,7 @@ public class AbstractArtDrawing {
      * @param args the input arguments
      */
     public static void main(String[] args) {
-        AbstractArtDrawing example1 = new AbstractArtDrawing();
-        example1.drawing();
+        AbstractArtDrawing drawing = new AbstractArtDrawing();
+        drawing.drawing();
     }
 }
