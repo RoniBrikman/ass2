@@ -6,7 +6,7 @@ import biuoop.DrawSurface;
  * The type Ball.
  */
 public class Ball {
-   
+
     public static final double PI = 3.14159;
 
     public static int SCREEN_H = 500;
@@ -31,6 +31,10 @@ public class Ball {
         this.velocity = new Velocity(0, 0);
     }
 
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
     /**
      * Instantiates a new Ball.
      *
@@ -39,7 +43,7 @@ public class Ball {
      * @param r     the r
      * @param color the color
      */
-    
+
     public Ball(double x, double y, int r, java.awt.Color color) {
         this.center = new Point(x, y);
         this.r = r;
@@ -47,7 +51,7 @@ public class Ball {
         this.velocity = new Velocity(0, 0);
     }
 
-    
+
     /**
      * Gets x.
      *
@@ -75,7 +79,7 @@ public class Ball {
     public int getSize() {
         return this.r;
     }
-    
+
     /**
      * Gets center.
      *
@@ -94,7 +98,7 @@ public class Ball {
         return this.color;
     }
 
-   
+
     /**
      * Draw on.
      *
@@ -123,7 +127,8 @@ public class Ball {
 
     public void setVelocity(Velocity v) {
         this.velocity = v;
-    } 
+    }
+
     /**
      * Gets velocity.
      *
@@ -140,21 +145,45 @@ public class Ball {
     /**
      * Move one step.
      */
-    public void moveOneStep() {
-        if (this.center.getX() + this.r >= SCREEN_W) {
-            this.setCenter(SCREEN_W - this.r, this.getY());
+    public void moveOneStep(int topLim, int bottomLim) {
+        if (this.center.getX() + this.r > topLim) {
+            this.setCenter(topLim - this.r, this.getY());
             this.setVelocity(-this.velocity.getDx(), this.velocity.getDy());
-        } else if (this.center.getX() - this.r <= 0) {
-            this.setCenter(this.r + 1, this.getY());
+        } else if (this.center.getX() - this.r < bottomLim) {
+            this.setCenter(this.r + bottomLim, this.getY());
             this.setVelocity(-this.velocity.getDx(), this.velocity.getDy());
         }
-        if (this.center.getY() - this.r <= 0) {
-            this.setCenter(this.getX(), this.r + 1);
+        if (this.center.getY() - this.r < bottomLim) {
+            this.setCenter(this.getX(), this.r + bottomLim);
             this.setVelocity(this.velocity.getDx(), -this.velocity.getDy());
-        } else if (this.center.getY() + this.r >= SCREEN_H) {
-            this.setCenter(this.getX(), SCREEN_H - this.r);
+        } else if (this.center.getY() + this.r > topLim) {
+            this.setCenter(this.getX(), topLim - this.r);
             this.setVelocity(this.velocity.getDx(), -this.velocity.getDy());
         }
         this.center = this.getVelocity().applyToPoint(this.center);
     }
+
+//    public void moveOneStepHard(int xMin, int xMax, int yMin, int yMax) {
+//        if (this.center.getX() + this.r >=) {
+//
+//        }
+//
+//
+//        if (this.center.getX() + this.r >= topLim) {
+//            this.setCenter(topLim - this.r, this.getY());
+//            this.setVelocity(-this.velocity.getDx(), this.velocity.getDy());
+//        } else if (this.center.getX() - this.r <= bottomLim) {
+//            this.setCenter(this.r + bottomLim, this.getY());
+//            this.setVelocity(-this.velocity.getDx(), this.velocity.getDy());
+//        }
+//        if (this.center.getY() - this.r <= bottomLim) {
+//            this.setCenter(this.getX(), this.r + bottomLim);
+//            this.setVelocity(this.velocity.getDx(), -this.velocity.getDy());
+//        } else if (this.center.getY() + this.r >= topLim) {
+//            this.setCenter(this.getX(), topLim - this.r);
+//            this.setVelocity(this.velocity.getDx(), -this.velocity.getDy());
+//        }
+//        this.center = this.getVelocity().applyToPoint(this.center);
+//    }
+
 }
