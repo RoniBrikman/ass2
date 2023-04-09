@@ -6,10 +6,11 @@ import biuoop.DrawSurface;
  * The type Ball.
  */
 public class Ball {
-    /**
-     * The constant PI.
-     */
+   
     public static final double PI = 3.14159;
+
+    public static int SCREEN_H = 500;
+    public static int SCREEN_W = 500;
     private Point center;
     private int r;
     private Color color;
@@ -38,6 +39,7 @@ public class Ball {
      * @param r     the r
      * @param color the color
      */
+    
     public Ball(double x, double y, int r, java.awt.Color color) {
         this.center = new Point(x, y);
         this.r = r;
@@ -45,6 +47,7 @@ public class Ball {
         this.velocity = new Velocity(0, 0);
     }
 
+    
     /**
      * Gets x.
      *
@@ -70,18 +73,9 @@ public class Ball {
      * @return the size
      */
     public int getSize() {
-        return (int) (this.r * this.r * PI);
-    }
-
-    /**
-     * Gets radius.
-     *
-     * @return the radius
-     */
-    public int getRadius() {
         return this.r;
     }
-
+    
     /**
      * Gets center.
      *
@@ -100,6 +94,7 @@ public class Ball {
         return this.color;
     }
 
+   
     /**
      * Draw on.
      *
@@ -119,16 +114,6 @@ public class Ball {
     /**
      * Sets velocity.
      *
-     * @param v the v
-     */
-    public void setVelocity(Velocity v) {
-        this.velocity = new Velocity(v.getDx(), v.getDy());
-
-    }
-
-    /**
-     * Sets velocity.
-     *
      * @param dx the dx
      * @param dy the dy
      */
@@ -136,6 +121,9 @@ public class Ball {
         this.velocity = new Velocity(dx, dy);
     }
 
+    public void setVelocity(Velocity v) {
+        this.velocity = v;
+    } 
     /**
      * Gets velocity.
      *
@@ -145,10 +133,28 @@ public class Ball {
         return this.velocity;
     }
 
+    public void setCenter(double x, double y) {
+        this.center = new Point(x, y);
+    }
+
     /**
      * Move one step.
      */
     public void moveOneStep() {
+        if (this.center.getX() + this.r >= SCREEN_W) {
+            this.setCenter(SCREEN_W - this.r, this.getY());
+            this.setVelocity(-this.velocity.getDx(), this.velocity.getDy());
+        } else if (this.center.getX() - this.r <= 0) {
+            this.setCenter(this.r + 1, this.getY());
+            this.setVelocity(-this.velocity.getDx(), this.velocity.getDy());
+        }
+        if (this.center.getY() - this.r <= 0) {
+            this.setCenter(this.getX(), this.r + 1);
+            this.setVelocity(this.velocity.getDx(), -this.velocity.getDy());
+        } else if (this.center.getY() + this.r >= SCREEN_H) {
+            this.setCenter(this.getX(), SCREEN_H - this.r);
+            this.setVelocity(this.velocity.getDx(), -this.velocity.getDy());
+        }
         this.center = this.getVelocity().applyToPoint(this.center);
     }
 }

@@ -1,6 +1,7 @@
 /**
  * The type Velocity.
  */
+import java.lang.Math;
 // Velocity specifies the change in position on the `x` and the `y` axes.
 public class Velocity {
     private double dx;
@@ -44,5 +45,19 @@ public class Velocity {
      */
     public double getDy() {
         return this.dy;
+    }
+
+
+    /**
+     * From angle and speed velocity.
+     *
+     * @param angle the angle
+     * @param speed the speed
+     * @return the velocity
+     */
+    public static Velocity fromAngleAndSpeed(double angle, double speed) {
+        double dx =  Math.cos(Math.toRadians(angle)) * speed;
+        double dy = Math.sin(Math.toRadians(angle)) * speed;
+        return new Velocity(dx, dy);
     }
 }
