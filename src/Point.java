@@ -12,12 +12,11 @@ public class Point {
     private double y;
 
     /**
-     * Instantiates a new Point.
+     * Instantiates a new Point using x and y values.
      *
      * @param x the x value
      * @param y the y value
      */
-// constructor
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
@@ -39,7 +38,6 @@ public class Point {
      * @param other the other Point
      * @return the distance between two Points
      */
-// distance -- return the distance of this point to the other point
     public double distance(Point other) {
         return Math.sqrt(((this.x - other.x) * (this.x - other.x)) + ((this.y - other.y) * (this.y - other.y)));
     }
@@ -50,7 +48,6 @@ public class Point {
      * @param other the other Point
      * @return True if they are equal, False if not
      */
-// equals -- return true is the points are equal, false otherwise
     public boolean equals(Point other) {
         double epsilon = 0.000001;
         return ((Math.abs(this.x - other.x) < epsilon) && (Math.abs(this.y - other.y) < epsilon));
@@ -74,26 +71,6 @@ public class Point {
      */
     public double getY() {
         return this.y;
-    }
-
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-        Point p1 = new Point(2, 5);
-        Point p2 = new Point(2, 5);
-        System.out.println("equals p1 p2=" + p1.getY() + "\n");
-        System.out.println("equals p1 p2=" + p1.getX() + "\n");
-//        Point p3 = new Point(2, 5);
-//        Point p4 = new Point(2, 7);
-//        System.out.println("equals p3 p4=" + p3.distance(p4) + "\n");
-//        Point p5 = new Point(2, 5);
-//        Point p6 = new Point(3, 5);
-//        System.out.println("equals p5 p6=" + p5.distance(p6) + "\n");
-
-
     }
 }
 

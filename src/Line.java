@@ -16,7 +16,7 @@ public class Line {
     private Point end;
 
     /**
-     * Instantiates a new Line.
+     * Instantiates a new Line using two points.
      *
      * @param start the start Point
      * @param end   the end Point
@@ -33,7 +33,7 @@ public class Line {
     }
 
     /**
-     * Instantiates a new Line.
+     * Instantiates a new Line using x values and y values of two points.
      *
      * @param x1 the x value of the first Point
      * @param y1 the y value of the first Point
@@ -55,21 +55,8 @@ public class Line {
      *
      * @return the length
      */
-// Return the length of the line
     public double length() {
         return Math.sqrt(((this.x1 - this.x2) * (this.x1 - this.x2)) + ((this.y1 - this.y2) * (this.y1 - this.y2)));
-    }
-
-    /**
-     * This method return the distance between two Points.
-     *
-     * @param p1 the first Point
-     * @param p2 the second Point
-     * @return the distance
-     */
-    public double distance(Point p1, Point p2) {
-        return Math.sqrt(((p1.getX() - p2.getX()) * (p1.getX() - p2.getX()))
-                + ((p1.getY() - p2.getY()) * (p1.getY() - p2.getY())));
     }
 
     /**
@@ -77,7 +64,6 @@ public class Line {
      *
      * @return the Middle point
      */
-// Returns the middle point of the line
     public Point middle() {
         double middleX = (this.x1 + this.x2) / 2;
         double middleY = (this.y1 + this.y2) / 2;
@@ -113,7 +99,7 @@ public class Line {
      */
     public boolean isOnLine(Line l, Point p) {
         double epsilon = 0.000001;
-        return (Math.abs((distance(l.start(), p) + distance(l.end(), p)) - l.length()) < epsilon);
+        return (Math.abs(l.start().distance(p) + (l.end().distance(p)) - l.length()) < epsilon);
     }
 
     /**
@@ -126,7 +112,7 @@ public class Line {
     public boolean isIntersecting(Line other) {
         if (this.intersectionWith(other) != null) {
             return true;
-        } else {
+        } else { //if one line is overlapping another line, so there are infinite intersection points
             return (isOnLine(this, other.start())) || (isOnLine(this, other.end()))
                     || (isOnLine(other, this.start)) || (isOnLine(other, this.end));
         }
@@ -137,12 +123,14 @@ public class Line {
      * return null.
      *
      * @param other the other Line
-     * @return the intersection point
+     * @return the intersection point or null
      */
 // Returns the intersection point if the lines intersect,
     // and null otherwise.
     public Point intersectionWith(Line other) {
+        //checks if the lines are equal
         if (this.equals(other)) {
+            //if the lines are equal there are infinite intersection points, return null
             return null;
         }
         Point a = this.start;
@@ -160,7 +148,9 @@ public class Line {
         double c2 = a2 * (c.getX()) + b2 * (c.getY());
         double determinant = a1 * b2 - a2 * b1;
 
+        //if the determinant is 0 they have the same incline
         if (determinant == 0) {
+            //checks if they have the same incline *but* one continues the other in one intersection point
             if ((this.start.equals(other.start())) && !(this.end.equals(other.end()))) {
                 return this.start;
             } else if ((this.start.equals(other.end())) && !(this.end.equals(other.start()))) {
@@ -170,9 +160,10 @@ public class Line {
             } else if ((this.end.equals(other.end())) && !(this.start.equals(other.start()))) {
                 return this.end;
             }
-            // The lines are parallel
+            // The lines are parallel with no intersection points so return null
             return null;
         } else {
+            //calculation of the x and y values of the intersection point
             double x = (b2 * c1 - b1 * c2) / determinant;
             double y = (a1 * c2 - a2 * c1) / determinant;
             Point p = new Point(x, y);
@@ -185,7 +176,7 @@ public class Line {
     }
 
     /**
-     * This method checks if two Lines are equal.
+     * This method checks if two Lines are equal, are the same line.
      *
      * @param other the other Line
      * @return True if they are equal, False if not
@@ -197,41 +188,6 @@ public class Line {
         }
         return (this.start == other.end()) && (this.end == other.start());
     }
-
-    /**
-     * Part equals boolean.
-     *
-     * @param other the other
-     * @return the boolean
-     */
-//    public boolean partEquals(Line other) {
-//        if ((this.start == other.start()) && !(this.end == other.end())) {
-//            return true;
-//        } else if ((this.start == other.end()) && !(this.end == other.start())) {
-//            return true;
-//        } else if (!(this.start == other.end()) && (this.end == other.start())) {
-//            return true;
-//        } else if ((this.start == other.end()) && !(this.start == other.start())) {
-//            return true;
-//        }
-//        return false;
-//    }
-
-    /**
-     * The entry point of application.
-     *
-     * @param args the input arguments
-     */
-    public static void main(String[] args) {
-        Point p1 = new Point(2, 5);
-        Line l1 = new Line(-8, 4, -5, 4);
-        Line l2 = new Line(-5, 4, -2, 4);
-        System.out.println(l1.isIntersecting(l2));
-        System.out.println(l1.intersectionWith(l2).getX());
-        System.out.println(l1.intersectionWith(l2).getY());
-//        System.out.println(l1.end().getX());
-//        System.out.println(l1.end().getY());
-
-    }
 }
+
 

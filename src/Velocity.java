@@ -1,8 +1,13 @@
+//323871723 Roni Brikman
+
 /**
- * The type Velocity.
+ * The type Velocity. Velocity specifies the change in position on the `x` and the `y` axes.
+ *
+ * @author Roni Brikman < ronibrikman@gmail.com >
+ * @version 1
+ * @since 2023 -04-07
  */
-import java.lang.Math;
-// Velocity specifies the change in position on the `x` and the `y` axes.
+
 public class Velocity {
     private double dx;
     private double dy;
@@ -13,7 +18,6 @@ public class Velocity {
      * @param dx the dx
      * @param dy the dy
      */
-// constructor
     public Velocity(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
@@ -49,11 +53,11 @@ public class Velocity {
 
 
     /**
-     * From angle and speed velocity.
+     * This method gets speed and angle and converts them (using math) to new Velocity.
      *
      * @param angle the angle
      * @param speed the speed
-     * @return the velocity
+     * @return the new velocity
      */
     public static Velocity fromAngleAndSpeed(double angle, double speed) {
         double dx =  Math.cos(Math.toRadians(angle)) * speed;

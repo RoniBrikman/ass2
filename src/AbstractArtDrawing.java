@@ -1,13 +1,23 @@
+//323871723 Roni Brikman
+
 import biuoop.GUI;
 import biuoop.DrawSurface;
-
 import java.awt.Color;
 import java.util.Random;
 
 /**
- * The type Abstract art drawing.
+ * Abstract Drawing class.
+ *
+ * @author Roni Brikman < ronibrikman@gmail.com >
+ * @version 1
+ * @since 2023 -04-07
  */
 public class AbstractArtDrawing {
+    public static final int SCREEN_H = 300;
+    /**
+     * The constant SCREEN_W.
+     */
+    public static final int SCREEN_W = 400;
 
     /**
      * This method generates a random line.
@@ -16,29 +26,28 @@ public class AbstractArtDrawing {
      */
     public Line generateRandomLine() {
         Random rand = new Random(); // create a random-number generator
-        //The window the line is within it's range is 400 pixels wide and 300 pixels high.
-        double x1 = rand.nextDouble(400) + 1; // get double in range 1-400
-        double y1 = rand.nextDouble(300) + 1; // get double in range 1-400
-        double x2 = rand.nextDouble(400) + 1; // get double in range 1-400
-        double y2 = rand.nextDouble(300) + 1; // get double in range 1-400
+        //The window the line is within the range is 400 pixels wide and 300 pixels high.
+        double x1 = rand.nextInt(SCREEN_W - 2) + rand.nextDouble() + 1; // get double in range 1-400
+        double y1 = rand.nextInt(SCREEN_H - 2) + rand.nextDouble() + 1; // get double in range 1-400
+        double x2 = rand.nextInt(SCREEN_W - 2) + rand.nextDouble() + 1; // get double in range 1-400
+        double y2 = rand.nextInt(SCREEN_H - 2) + rand.nextDouble() + 1; // get double in range 1-400
         return new Line(x1, y1, x2, y2);
 
     }
 
-
     /**
-     * * Draw random circles.
+     * This method draws 10 random circles.
      */
     public void drawRandomCircles() {
         Random rand = new Random(); // create a random-number generator
         // Create a window with the title "Random Circles Example"
         // which is 400 pixels wide and 300 pixels high.
-        GUI gui = new GUI("Random Circles Example", 400, 300);
+        GUI gui = new GUI("Random Circles Example", SCREEN_W, SCREEN_H);
         DrawSurface d = gui.getDrawSurface();
         for (int i = 0; i < 10; ++i) {
-            int x = rand.nextInt(400) + 1; // get integer in range 1-400
-            int y = rand.nextInt(300) + 1; // get integer in range 1-300
-            int r = 5 * (rand.nextInt(4) + 1); // get integer in 5,10,15,20
+            int x = rand.nextInt(SCREEN_W) + 1; // get integer in range 1-400
+            int y = rand.nextInt(SCREEN_H) + 1; // get integer in range 1-300
+            int r = 5 * (rand.nextInt(4) + 1); // get integer in 5,10,15,20- the radius
             d.setColor(Color.RED);
             d.fillCircle(x, y, r);
         }
@@ -88,24 +97,9 @@ public class AbstractArtDrawing {
     public void drawing() {
         // Create a window with the title "Random Line"
         // which is 400 pixels wide and 300 pixels high.
-        GUI gui = new GUI("Random Line", 400, 300);
+        GUI gui = new GUI("Random Line", SCREEN_W, SCREEN_H);
         DrawSurface d1 = gui.getDrawSurface();
         Line[] lines = new Line[10]; //The array of the lines we will create.
-//        Line l1 = new Line(100, 100, 100, 150);
-//        Line l2 = new Line(100, 100, 100, 100);
-//        lines[0] = l1;
-//        lines[1] = l2;
-//        drawLine(l1, d1);
-//        drawLine(l2, d1);
-//        if (lines[0].isIntersecting(lines[1])) {
-//            if (lines[0].intersectionWith(lines[1]) != null) {
-//                double x = lines[0].intersectionWith(lines[1]).getX();
-//                double y = lines[0].intersectionWith(lines[1]).getY();
-//                int r = 3;
-//                d1.setColor(Color.RED);
-//                d1.fillCircle((int) x, (int) y, r);
-//            }
-//        }
         for (int i = 0; i < 10; i++) {
             //creates and draws the lines
             Line line = generateRandomLine();
